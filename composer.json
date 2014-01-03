@@ -1,0 +1,17 @@
+{
+    "name": "yoye/ovh-bundle",
+    "require": {
+        "yoye/ovh-sdk": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yoye",
+            "email": "y.aparici@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"Betacie\\Bundle\\OvhBundle": ""}
+    },
+    "target-dir": "Betacie/Bundle/OvhBundle"
+}
