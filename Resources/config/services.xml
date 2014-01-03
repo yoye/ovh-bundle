@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="betacie_ovh.service_builder.class">Guzzle\Service\Builder\ServiceBuilder</parameter>
+        
+        <parameter key="betacie_ovh.client.class">Yoye\OVH\Client</parameter>
+    </parameters>
+
+    <services>
+        <!-- Factory -->
+        <service id="betacie_ovh.service_builder_factory" class="%betacie_ovh.service_builder.class%" />
+
+        <service id="betacie_ovh.service_builder" 
+                 class="%betacie_ovh.service_builder.class%" 
+                 factory-service="betacie_ovh.service_builder_factory" 
+                 factory-method="factory">
+            <argument type="collection">
+                <argument key="services" type="collection">
+                    <argument key="ovh" type="collection">
+                        <argument key="class">%betacie_ovh.client.class%</argument>
+                    </argument>
+                </argument>
+            </argument>
+        </service>
+
+        <service id="betacie_ovh.client" 
+                 class="%betacie_ovh.client.class%" 
+                 factory-service="betacie_ovh.service_builder" 
+                 factory-method="get">
+            <argument>ovh</argument>
+            <argument type="collection">
+                <argument key="application_key">%betacie_ovh.application_key%</argument>
+                <argument key="application_secret">%betacie_ovh.application_secret%</argument>
+                <argument key="consumer_key">%betacie_ovh.consumer_key%</argument>
+            </argument>
+        </service>
+    </services>
+
+</container>
